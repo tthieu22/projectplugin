@@ -1,0 +1,33 @@
+.tab-setting-control{
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	button{
+		padding: 5px 20px;
+		background-color: darkgray;
+		color: white;
+		border: none;
+
+		&.active {
+		    background-color: black;
+		    color: white;
+		    border: none;
+		}
+	}
+}
+.wrapper-setting{
+	padding: 20px;
+	border: 1px solid darkgray;
+	form{
+		h3{
+			font-size: 25px;
+		}
+		input[type="submit"]{
+			padding: 5px 20px;
+			background-color: black;
+			color: white;
+			border: none;
+		}
+
+	}
+}

@@ -22,14 +22,31 @@
         font-size: 15px;
         color: #5f2dee;
     }
-     strong{
+     strong,span.categories-label{
         color: black;
         margin: 0;
     }
 
-    .cate-list .text-co{
+    .cate-list .text-co ,.project-categories.text-white{
         color: #5f2dee;
         border-bottom: 2px solid white;
+        width: 100%;
+        a{
+
+            position: relative;
+            &:before{
+                position: absolute;
+                content: ',';
+                top: 0;
+                right: -5px;
+                
+            }
+            &:last-child:before{
+                content: '';
+                
+            }
+        }
+
     }
 }
 

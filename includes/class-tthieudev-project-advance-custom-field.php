@@ -22,7 +22,6 @@ if ( ! class_exists( 'Class_TthieuDev_Project_Advance_Custom_Field' ) ) {
         }
 
         public function display_project_meta_box($post) {
-            // Get the current data of the fields if previously saved
             $sub_title = get_post_meta($post->ID, 'sub_title', true);
             $client = get_post_meta($post->ID, 'client', true);
             $date = get_post_meta($post->ID, 'date', true);
@@ -51,28 +50,23 @@ if ( ! class_exists( 'Class_TthieuDev_Project_Advance_Custom_Field' ) ) {
             <?php
         }
 
-        // Save the data of fields
         public function save_project_meta_box($post_id) {
-            // Check the nonce to ensure security
             if (!isset($_POST['project_meta_box_nonce']) || !wp_verify_nonce($_POST['project_meta_box_nonce'], basename(__FILE__))) {
                 return $post_id;
             }
-            // Check user permissions
             if (!current_user_can('edit_post', $post_id)) {
                 return $post_id;
             }
-            // Save each custom field
             $fields = ['sub_title', 'client', 'date', 'value'];
             foreach ($fields as $field) {
                 $new_value = isset($_POST[$field]) ? sanitize_text_field($_POST[$field]) : '';
                 update_post_meta($post_id, $field, $new_value);
             }
         }
+
     }
 
 }
-
-// Initialize the class when the plugin is loaded
 if (class_exists('Class_TthieuDev_Project_Advance_Custom_Field')) {
-    $tthieuDev_Project_Acf = new Class_TthieuDev_Project_Advance_Custom_Field();
+    new Class_TthieuDev_Project_Advance_Custom_Field();
 }

@@ -36,6 +36,7 @@
     .content-archive-post{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+        margin: 0 auto;
 
         .content-archive-item{
             display: block;
@@ -67,22 +68,47 @@
         .content-post{
             z-index: 2;
             padding: 20px;
+            width: 100%;
 
-            .project-item h2 {
-                a{
-                    font-size: 20px;
-                    text-transform: capitalize;
-                    font-weight: 700;
-                    color: white;
+            .project-item {
+                overflow: hidden;
+                h2 {
+                    a{
+                        font-size: 20px;
+                        text-transform: capitalize;
+                        font-weight: 700;
+                        color: white;
+                        display: inline-block;
+                        max-width: 27ch;             /* Giới hạn tối đa 5 ký tự */
+                        overflow: hidden;           /* Ẩn phần văn bản vượt quá */
+                        text-overflow: ellipsis;    /* Thêm dấu ba chấm nếu bị cắt */
+                        white-space: nowrap;   
+                    }
                 }
             }
 
             .project-categories{
+                span.categories-label{
+                    display: none;
+                }
+                br{
+                    display: none;
+                }
                 a{
                     font-size: 14px;
                     color: #fff;
                     text-transform: uppercase;
                     font-weight: 600;
+                    position: relative;
+                    &:after{
+                        position: absolute;
+                        content: '/';
+                        top: -2px;
+                        right: -8px;
+                    }
+                    &:last-child:after{
+                        content: '';
+                    }
                 }
                 a:hover{
                     color: #B882FC;

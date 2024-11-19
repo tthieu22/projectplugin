@@ -1,0 +1,21 @@
+.wrapper .pagination-main #pagination-container {
+  display: flex;
+  justify-content: center; }
+  .wrapper .pagination-main #pagination-container a.page-link {
+    margin: 0;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    margin: 0px 2px 10px 2px;
+    border: none;
+    background-color: #7A7A7A;
+    padding: 0;
+    float: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff; }
+    .wrapper .pagination-main #pagination-container a.page-link.active {
+      background-color: blue; }
+
+/*# sourceMappingURL=widget-get-list-project.css.map */

@@ -18,3 +18,10 @@
 defined("ABSPATH") or die("You can not access directly");
 
 require(plugin_dir_path( __FILE__ ) . 'includes/tthieudev-core-function.php');
+
+function tthieudev_elmentor(){
+    require_once(__DIR__.'/includes/class-tthieudev-elementor.php');
+    Tthieudev_Elementor::instance();
+}
+
+add_action('plugins_loaded','tthieudev_elmentor');

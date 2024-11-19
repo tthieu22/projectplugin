@@ -1,10 +1,10 @@
 <?php 
 defined("ABSPATH") or die("You can not access directly");
 get_header(); 
-tthieudev_get_template( './item/banner-header.php' );
+TemplateLoader::get_template( 'item/banner-header.php' );
 if ( have_posts() ) :
     while ( have_posts() ) : the_post();
-        tthieudev_get_template( './content/single-detail.php' ); 
+        TemplateLoader::get_template('content/single-detail.php' ); 
 
     endwhile;
 else :
