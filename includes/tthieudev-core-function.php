@@ -1,17 +1,33 @@
 <?php 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
 
 if ( ! defined( 'PLUGIN_PATH' ) ) {
+    // Define the PLUGIN_PATH constant if it's not already defined, pointing to the plugin directory path.
     define( 'PLUGIN_PATH', rtrim( plugin_dir_path( dirname( __FILE__ ) ), '/' ) . '/' );
 }
 
+/**
+ * Core Function - Loading essential plugin files.
+ * 
+ * This section of the code uses the `array_map` function to loop through an array of file names.
+ * For each file in the array, it requires the corresponding PHP file from the 'includes' folder 
+ * in the plugin directory. This ensures that all the necessary classes and functions for the plugin 
+ * are loaded.
+ * 
+ * The required files include:
+ * - Custom Post Type, ACF, Asset Loader, Template Loader, and more, which are essential 
+ *   for the core functionality of the plugin.
+ */
+
+// Loop through the list of required files and include them from the 'includes' directory.
 array_map(fn($file) => require_once PLUGIN_PATH . 'includes/' . $file, [
-    'class-tthieudev-project-custom-post-type.php',
-    'class-tthieudev-project-advance-custom-field.php',
-    'class-tthieudev-load-assets.php',
-    'class-tthieudev-project-template-loader.php',
-    'class-tthieudev-template-function.php',
-    'class-tthieudev-breadcrumb.php',
-    'class-tthieudev-project-setting.php',
-    'class-tthieudev-elementor-helper.php',
+    // List of core plugin files to be included
+    'class-tthieudev-project-custom-post-type.php',        
+    'class-tthieudev-project-advance-custom-field.php',    
+    'class-tthieudev-load-assets.php',                    
+    'class-tthieudev-project-template-loader.php',   
+    'class-tthieudev-template-function.php',               
+    'class-tthieudev-breadcrumb.php',                     
+    'class-tthieudev-project-setting.php',              
+    'class-tthieudev-elementor-helper.php',               
 ]);

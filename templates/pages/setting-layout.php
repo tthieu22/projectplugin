@@ -13,5 +13,5 @@ if (!defined('ABSPATH')) {
     <button type="button" class="w3-bar-item w3-button" onclick="openCity('Archive')">Archive</button>
 </div>
 
-<?php TemplateLoader::get_template('form/form-setting-single.php' ); ?> 
-<?php TemplateLoader::get_template('form/form-setting-archive.php' ); ?> 
+<?php TemplateLoader::get_template('forms/form-setting-single.php' ); ?> 
+<?php TemplateLoader::get_template('forms/form-setting-archive.php' ); ?> 

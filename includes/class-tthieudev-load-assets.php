@@ -1,14 +1,16 @@
 <?php
 if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly
+    exit; // Prevent direct access
 }
 
-// Define plugin base URL constant
+// Define the PLUGIN_URI constant
 if (!defined('PLUGIN_URI')) {
     define('PLUGIN_URI', rtrim(plugin_dir_url(dirname(__FILE__)), '/') . '/');
 }
 
-// Check if the class doesn't already exist
+/**
+ * Class to handle loading CSS and JS assets
+ */
 if (!class_exists('Class_Tthieudev_Load_Assets')) {
     class Class_Tthieudev_Load_Assets {
         public function __construct() {
@@ -17,6 +19,7 @@ if (!class_exists('Class_Tthieudev_Load_Assets')) {
                 'admin_enqueue_scripts' => ['load_styles_admin', 'load_scripts_admin'],
             ];
 
+            // Register actions for frontend and admin asset loading
             foreach ($actions as $hook => $methods) {
                 foreach ($methods as $method) {
                     add_action($hook, [$this, $method]);
@@ -24,9 +27,8 @@ if (!class_exists('Class_Tthieudev_Load_Assets')) {
             }
         }
 
-
         /**
-         * Load styles for the frontend
+         * Load frontend styles
          */
         public function load_styles_frontend() {
             wp_enqueue_style('bootstrap_min_css', PLUGIN_URI . "assets/css/library/bootstrap.min.css", array(), '1.0.0', 'all');
@@ -37,20 +39,20 @@ if (!class_exists('Class_Tthieudev_Load_Assets')) {
         }
 
         /**
-         * Load scripts for the frontend
+         * Load frontend scripts
          */
         public function load_scripts_frontend() {
             wp_enqueue_script('jquery_js', PLUGIN_URI . "assets/js/library/jquery-3.7.1.js", array('jquery'), '1.0.0', true);
             wp_enqueue_script('bootstrap_min_js', PLUGIN_URI . "assets/js/library/bootstrap.min.js", array('jquery'), '1.0.0', true);
 
-            // Localize a variable for AJAX requests
+            // Pass AJAX URL for frontend use
             wp_localize_script('jquery_js', 'ajaxurl', array(
                 'baseURL' => admin_url('admin-ajax.php')
             ));
         }
 
         /**
-         * Load styles for the backend (admin panel)
+         * Load admin panel styles
          */
         public function load_styles_admin() {
             wp_enqueue_style('bootstrap_min_css', PLUGIN_URI . "assets/css/library/bootstrap.min.css", array(), '1.0.0', 'all');
@@ -59,14 +61,14 @@ if (!class_exists('Class_Tthieudev_Load_Assets')) {
         }
 
         /**
-         * Load scripts for the backend (admin panel)
+         * Load admin panel scripts
          */
         public function load_scripts_admin() {
             wp_enqueue_script('jquery_js', PLUGIN_URI . "assets/js/library/jquery-3.7.1.js", array('jquery'), '1.0.0', true);
             wp_enqueue_script('bootstrap_min_js', PLUGIN_URI . "assets/js/library/bootstrap.min.js", array('jquery'), '1.0.0', true);
             wp_enqueue_script('setting_project', PLUGIN_URI . "assets/js/admin/setting-project.js", array('jquery'), '1.0.0', true);
 
-            // Localize a variable for AJAX requests
+            // Pass AJAX URL for admin use
             wp_localize_script('jquery_js', 'ajaxurl', array(
                 'baseURL' => admin_url('admin-ajax.php')
             ));
@@ -74,7 +76,7 @@ if (!class_exists('Class_Tthieudev_Load_Assets')) {
     }
 }
 
-// Initialize the class if it exists
+// Initialize the class
 if (class_exists('Class_Tthieudev_Load_Assets')) {
     new Class_Tthieudev_Load_Assets();
 }

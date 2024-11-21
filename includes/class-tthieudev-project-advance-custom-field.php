@@ -1,27 +1,41 @@
 <?php 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+    exit; // Prevent direct access
 }
 
+/**
+ * Class for managing custom fields for the "Project" post type
+ */
 if ( ! class_exists( 'Class_TthieuDev_Project_Advance_Custom_Field' ) ) {
     class Class_TthieuDev_Project_Advance_Custom_Field {
         public function __construct() {
+            // Add meta box for project custom fields
             add_action('add_meta_boxes', [$this, 'add_project_meta_box']);
+            // Save meta box data when the post is saved
             add_action('save_post', [$this, 'save_project_meta_box']);
         }
 
+        /**
+         * Add a meta box to the "Project" post type
+         */
         public function add_project_meta_box() {
             add_meta_box(
-                'project_details',                  // ID 
-                __('Project Details', 'tthieudev'), // Title
-                [$this, 'display_project_meta_box'],// function callback show display meta boxes
-                'project',                          // Post Type to which the meta box is added
-                'normal',                           // Display position (normal, side, advanced)
+                'project_details',                  // Meta box ID
+                __('Project Details', 'tthieudev'), // Meta box title
+                [$this, 'display_project_meta_box'],// Callback function to display the meta box
+                'project',                          // Post type to attach the meta box
+                'normal',                           // Display position ('normal', 'side', 'advanced')
                 'high'                              // Display priority
             );
         }
 
+        /**
+         * Display the meta box fields
+         * 
+         * @param WP_Post $post The post object
+         */
         public function display_project_meta_box($post) {
+            // Retrieve existing meta values
             $sub_title = get_post_meta($post->ID, 'sub_title', true);
             $client = get_post_meta($post->ID, 'client', true);
             $date = get_post_meta($post->ID, 'date', true);
@@ -30,6 +44,7 @@ if ( ! class_exists( 'Class_TthieuDev_Project_Advance_Custom_Field' ) ) {
             // Nonce field for security
             wp_nonce_field(basename(__FILE__), 'project_meta_box_nonce');
 
+            // Display fields
             ?>
             <p>
                 <label for="sub_title"><?php esc_html_e('Sub Title', 'tthieudev'); ?></label>
@@ -50,13 +65,23 @@ if ( ! class_exists( 'Class_TthieuDev_Project_Advance_Custom_Field' ) ) {
             <?php
         }
 
+        /**
+         * Save the custom fields data
+         * 
+         * @param int $post_id The ID of the post being saved
+         */
         public function save_project_meta_box($post_id) {
+            // Verify nonce for security
             if (!isset($_POST['project_meta_box_nonce']) || !wp_verify_nonce($_POST['project_meta_box_nonce'], basename(__FILE__))) {
                 return $post_id;
             }
+
+            // Check the user’s permission to edit the post
             if (!current_user_can('edit_post', $post_id)) {
                 return $post_id;
             }
+
+            // Save or update each field
             $fields = ['sub_title', 'client', 'date', 'value'];
             foreach ($fields as $field) {
                 $new_value = isset($_POST[$field]) ? sanitize_text_field($_POST[$field]) : '';
@@ -67,6 +92,8 @@ if ( ! class_exists( 'Class_TthieuDev_Project_Advance_Custom_Field' ) ) {
     }
 
 }
+
+// Initialize the class if it exists
 if (class_exists('Class_TthieuDev_Project_Advance_Custom_Field')) {
     new Class_TthieuDev_Project_Advance_Custom_Field();
 }

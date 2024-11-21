@@ -1,82 +1,97 @@
 <?php
-if ( ! defined( 'PLUGIN_URI' ) ) {
-    define( 'PLUGIN_URI', plugin_dir_url( __FILE__ ) );
+if (!defined('PLUGIN_URI')) {
+    define('PLUGIN_URI', plugin_dir_url(__FILE__));
 }
 
-class Tthieudev_Scripts_Styles_Elementor {
-    public function __construct() {
-        $actions = [
-            'wp_enqueue_scripts' => ['enqueue_frontend_styles', 'enqueue_frontend_scripts'],
-            'admin_enqueue_scripts' => ['enqueue_admin_styles', 'enqueue_admin_scripts'],
-        ];
+/**
+ * Enqueue styles and scripts for Elementor Widgets (frontend & admin).
+ */
+if (!class_exists('Tthieudev_Scripts_Styles_Elementor')) {
+    class Tthieudev_Scripts_Styles_Elementor {
 
-        foreach ($actions as $action => $methods) {
-            foreach ($methods as $method) {
-                add_action($action, [$this, $method]);
+        public function __construct() {
+            // Map actions to methods
+            $hooks = [
+                'wp_enqueue_scripts' => ['enqueue_frontend_assets'],
+                'admin_enqueue_scripts' => ['enqueue_admin_assets'],
+                'elementor/editor/after_enqueue_scripts' => ['enqueue_elementor_editor_scripts'],
+            ];
+
+            // Loop through hooks and register methods
+            foreach ($hooks as $action => $methods) {
+                foreach ($methods as $method) {
+                    add_action($action, [$this, $method]);
+                }
             }
         }
-    }
 
+        /**
+         * Enqueue frontend styles and scripts.
+         */
+        public function enqueue_frontend_assets() {
+            wp_enqueue_style(
+                'widget_get_list_project_css',
+                PLUGIN_URI . "assets/css/elementors/widget-get-list-project.css",
+                [],
+                '1.0.0',
+                'all'
+            );
+            wp_enqueue_script(
+                'widget_get_list_project_js',
+                PLUGIN_URI . "assets/js/elementors/widget-get-list-project.js",
+                ['jquery'],
+                '1.0.0',
+                true
+            );
+            wp_localize_script(
+                'widget_get_list_project_js',
+                'ajax_object',
+                [
+                    'ajax_url' => admin_url('admin-ajax.php'),
+                    'security' => wp_create_nonce('tthieudev-security-ajax'),
+                ]
+            );
+        }
 
-    /**
-     * Enqueue frontend styles (CSS)
-     */
-    public function enqueue_frontend_styles() {
-        wp_enqueue_style( 
-            'widget_get_list_project_css', 
-            PLUGIN_URI . "assets/css/elementors/widget-get-list-project.css", 
-            [], 
-            '1.0.0', 
-            'all' 
-        );
-    }
+        /**
+         * Enqueue admin styles and scripts.
+         */
+        public function enqueue_admin_assets() {
+            wp_enqueue_style(
+                'widget_get_list_project_admin_css',
+                PLUGIN_URI . "assets/css/elementors/admin-widget-get-list-project.css",
+                [],
+                '1.0.0',
+                'all'
+            );
+            wp_enqueue_script(
+                'widget_get_list_project_admin_js',
+                PLUGIN_URI . "assets/js/elementors/admin-widget-get-list-project.js",
+                ['jquery'],
+                '1.0.0',
+                true
+            );
+        }
 
-    /**
-     * Enqueue frontend scripts (JavaScript)
-     */
-    public function enqueue_frontend_scripts() {
-        wp_enqueue_script( 
-            'widget_get_list_project_js', 
-            PLUGIN_URI . "assets/js/elementors/widget-get-list-project.js", 
-            [ 'jquery' ], 
-            '1.0.0', 
-            true 
-        );
-
-        // Localize script to pass data to JavaScript
-        wp_localize_script( 
-            'widget_get_list_project_js', 
-            'ajax_object', 
-            [
-                'ajax_url' => admin_url( 'admin-ajax.php' ),
-                'security' => wp_create_nonce( 'tthieudev-security-ajax' ),
-            ]
-        );
-    }
-
-    /**
-     * Enqueue admin styles (CSS)
-     */
-    public function enqueue_admin_styles() {
-        wp_enqueue_style( 
-            'widget_get_list_project_admin_css', 
-            PLUGIN_URI . "assets/css/elementors/admin-widget-get-list-project.css", 
-            [], 
-            '1.0.0', 
-            'all' 
-        );
-    }
-
-    /**
-     * Enqueue admin scripts (JavaScript)
-     */
-    public function enqueue_admin_scripts() {
-        wp_enqueue_script( 
-            'widget_get_list_project_admin_js', 
-            PLUGIN_URI . "assets/js/elementors/admin-widget-get-list-project.js", 
-            [ 'jquery' ], 
-            '1.0.0', 
-            true 
-        );
+        /**
+         * Enqueue scripts for Elementor editor.
+         */
+        public function enqueue_elementor_editor_scripts() {
+            wp_enqueue_script(
+                'tthieudev-editor',
+                PLUGIN_URI . 'assets/js/elementors/max-post.js',
+                ['jquery', 'elementor-editor'],
+                '1.0.0',
+                true
+            );
+            wp_localize_script(
+                'tthieudev-editor',
+                'tthieudev',
+                [
+                    'ajax_url' => admin_url('admin-ajax.php'),
+                    'security_tthieu' => wp_create_nonce('tthieudev-security-ajax-max'),
+                ]
+            );
+        }
     }
 }

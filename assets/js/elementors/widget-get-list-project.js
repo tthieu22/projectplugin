@@ -63,18 +63,20 @@ jQuery(document).ready(function ($) {
      * @param {number} currentPage The current active page
      */
     function displayPagination(totalPages, currentPage) {
-        var paginationHtml = ''; // HTML string for pagination links
+    var paginationHtml = ''; // HTML string for pagination links
 
-        if (totalPages > 1) {
-            // Add "Prev" button if not on the first page
-            if (currentPage > 1) {
-                paginationHtml +=
-                    '<a href="#" class="page-link prev" data-page="' +
-                    (currentPage - 1) +
-                    '"><i class="fas fa-chevron-left"></i></a> ';
-            }
+    if (totalPages > 1) {
+        // Add "Prev" button if not on the first page
+        if (currentPage > 1) {
+            paginationHtml +=
+                '<a href="#" class="page-link prev" data-page="' +
+                (currentPage - 1) +
+                '"><i class="fas fa-chevron-left"></i></a> ';
+        }
 
-            // Add individual page links
+        // Add individual page links
+        if (totalPages <= 5) {
+            // If there are 5 or fewer pages, show all
             for (var i = 1; i <= totalPages; i++) {
                 var activeClass = i === currentPage ? 'active' : ''; // Highlight the current page
                 paginationHtml +=
@@ -86,17 +88,84 @@ jQuery(document).ready(function ($) {
                     i +
                     '</a> ';
             }
-
-            // Add "Next" button if not on the last page
-            if (currentPage < totalPages) {
+        } else {
+            // Show first page and some middle pages with "..."
+            if (currentPage <= 3) {
+                // Show first 4 pages
+                for (var i = 1; i <= 4; i++) {
+                    var activeClass = i === currentPage ? 'active' : ''; // Highlight the current page
+                    paginationHtml +=
+                        '<a href="#" class="page-link ' +
+                        activeClass +
+                        '" data-page="' +
+                        i +
+                        '">' +
+                        i +
+                        '</a> ';
+                }
+                paginationHtml += '<a href="#" class="page-link dots page-num" data-page="...">...</a> ';
                 paginationHtml +=
-                    '<a href="#" class="page-link next" data-page="' +
-                    (currentPage + 1) +
-                    '"><i class="fas fa-chevron-right"></i></a>';
+                    '<a href="#" class="page-link" data-page="' +
+                    totalPages +
+                    '">' +
+                    totalPages +
+                    '</a>';
+            } else if (currentPage >= totalPages - 2) {
+                // Show last 4 pages
+                paginationHtml +=
+                    '<a href="#" class="page-link" data-page="1">1</a> ';
+                paginationHtml += '<a href="#" class="page-link dots page-num" data-page="...">...</a> ';
+                for (var i = totalPages - 3; i <= totalPages; i++) {
+                    var activeClass = i === currentPage ? 'active' : ''; // Highlight the current page
+                    paginationHtml +=
+                        '<a href="#" class="page-link ' +
+                        activeClass +
+                        '" data-page="' +
+                        i +
+                        '">' +
+                        i +
+                        '</a> ';
+                }
+            } else {
+                // Show current page and some before and after with "..."
+                paginationHtml +=
+                    '<a href="#" class="page-link" data-page="1">1</a> ';
+                paginationHtml += '<a href="#" class="page-link dots page-num" data-page="...">...</a> ';
+                for (var i = currentPage - 1; i <= currentPage + 1; i++) {
+                    var activeClass = i === currentPage ? 'active' : ''; // Highlight the current page
+                    paginationHtml +=
+                        '<a href="#" class="page-link ' +
+                        activeClass +
+                        '" data-page="' +
+                        i +
+                        '">' +
+                        i +
+                        '</a> ';
+                }
+                paginationHtml += '<a href="#" class="page-link dots page-num" data-page="...">...</a> ';
+                paginationHtml +=
+                    '<a href="#" class="page-link" data-page="' +
+                    totalPages +
+                    '">' +
+                    totalPages +
+                    '</a>';
             }
         }
 
-        // Update the pagination container with the generated HTML
-        $('#pagination-container').html(paginationHtml);
+        // Add "Next" button if not on the last page
+        if (currentPage < totalPages) {
+            paginationHtml +=
+                '<a href="#" class="page-link next" data-page="' +
+                (currentPage + 1) +
+                '"><i class="fas fa-chevron-right"></i></a>';
+        }
     }
+
+    // Update the pagination container with the generated HTML
+    $('#pagination-container').html(paginationHtml);
+    
+}
+
+
+
 });

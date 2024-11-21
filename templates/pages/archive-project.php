@@ -1,14 +1,8 @@
 <?php 
 defined("ABSPATH") or die("You can not access directly");
 get_header(); 
+TemplateLoader::get_template( 'item/banner.php' );
 ?>
-
-<div class="project-archive-banner position-relative mb-4">
-    <div class="img-banner-custom w-100 h-100 position-absolute left-0 top-0"></div>
-    <h1 class="text-lg-center text-uppercase fw-bold text-white"><?php _e('Archives: Projects', 'tthieudev'); ?></h1>
-    <?php Tthieudev_Breadcrumb::display(); ?>
-</div>
-
 <div class="wrapper ">
     <div class="content-archive-post gap-20">
         <?php if ( have_posts() ) : ?>
@@ -21,7 +15,7 @@ get_header();
     </div>
 
     <div class="container">
-        <div class="row mt-4">
+        <div class="row">
             <?php 
             if (get_option('checked-show-pagination') == '1'){
                 TemplateLoader::get_template( 'item/panigation.php' );
