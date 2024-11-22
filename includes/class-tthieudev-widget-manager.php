@@ -71,3 +71,8 @@ if (!class_exists('Tthieudev_Widget_Manager')) {
         }
     }
 }
+
+// Instantiate the TemplateLoader class if it is defined.
+if ( class_exists( 'Tthieudev_Widget_Manager' ) ) {
+    new Tthieudev_Widget_Manager();
+}

@@ -27,41 +27,37 @@ if (!class_exists('Tthieudev_Ajax')) {
         /**
          * Handles the AJAX request for loading project posts.
          */
-        public function load_post_project_ajax() {
-            // Verify the security nonce for AJAX requests.
+       public function load_post_project_ajax() {
             if (!check_ajax_referer('tthieudev-security-ajax', 'security', false)) {
                 wp_send_json_error(['message' => 'Invalid security token.']);
                 wp_die();
             }
-
-            // Fetch settings for loading posts
-            $settings = get_option('project_settings', []);
             $paged = isset($_POST['paged']) ? intval($_POST['paged']) : 1;
-
-            // Build the query arguments
+            $posts_per_page = isset($_POST['posts_per_page']) ? intval($_POST['posts_per_page']) : 10;
+            $selected_tags = isset($_POST['selected_tags']) ? $_POST['selected_tags'] : [];
+            $selected_categories = isset($_POST['selected_categories']) ? $_POST['selected_categories'] : [];
+            $current_post_id = isset($_POST['current_post_id']) ? intval($_POST['current_post_id']) : 0;
             $args = [
-                'post_type'      => 'project',
-                'post_status'    => 'publish',
-                'paged'          => $paged,
-                'posts_per_page' => $settings['posts_per_page'] ?? 10,
-                'post__not_in'   => [$settings['current_post_id'] ?? 0],
+                'post_type' => 'project',
+                'post_status' => 'publish',
+                'paged' => $paged,  
+                'posts_per_page' => $posts_per_page,
+                'post__not_in' => [$current_post_id],
             ];
-
-            // Taxonomy query
             $tax_query = [];
-            if (!empty($settings['selected_categories'])) {
+            if (!empty($selected_categories)) {
                 $tax_query[] = [
                     'taxonomy' => 'project_category',
-                    'field'    => 'slug',
-                    'terms'    => $settings['selected_categories'],
+                    'field' => 'slug',
+                    'terms' => $selected_categories,
                 ];
             }
 
-            if (!empty($settings['selected_tags'])) {
+            if (!empty($selected_tags)) {
                 $tax_query[] = [
                     'taxonomy' => 'project_tag',
-                    'field'    => 'slug',
-                    'terms'    => $settings['selected_tags'],
+                    'field' => 'slug',
+                    'terms' => $selected_tags,
                 ];
             }
 
@@ -71,9 +67,8 @@ if (!class_exists('Tthieudev_Ajax')) {
                     ...$tax_query,
                 ];
             }
-
-            // Query posts
             $query = new WP_Query($args);
+
             if ($query->have_posts()) {
                 ob_start();
                 while ($query->have_posts()) {
@@ -91,18 +86,15 @@ if (!class_exists('Tthieudev_Ajax')) {
             wp_die();
         }
 
-        /**
-         * Handles the AJAX request for fetching max posts.
-         */
-        public function handle_your_ajax_request() {
-            // Verify nonce
-            if (!isset($_POST['security_tthieu']) || !wp_verify_nonce($_POST['security_tthieu'], 'tthieudev-security-ajax-max')) {
-                wp_send_json_error(['message' => 'Permission Denied']);
+       public function handle_your_ajax_request() {
+            if (!check_ajax_referer('tthieudev-security-ajax-max', 'security_tthieu', false)) {
+                wp_send_json_error(['message' => 'Invalid security token.']);
                 wp_die();
             }
-
-            // Fetch max posts logic
-            $max_posts = TthieuDev_Elementor_Helper::get_max_posts();
+            $selected_tags = isset($_POST['selected_tags']) ? $_POST['selected_tags'] : [];
+            $selected_categories = isset($_POST['selected_categories']) ? $_POST['selected_categories'] : [];
+            $current_post_id = isset($_POST['current_post_id']) ? intval($_POST['current_post_id']) : 0;
+            $max_posts = self::get_max_posts($selected_tags, $selected_categories, $current_post_id);
 
             if ($max_posts === false) {
                 wp_send_json_error(['message' => 'Unable to fetch max posts.']);
@@ -112,5 +104,11 @@ if (!class_exists('Tthieudev_Ajax')) {
 
             wp_die();
         }
+        
+
+
     }
+}
+if ( class_exists( 'Tthieudev_Ajax' ) ) {
+    new Tthieudev_Ajax();
 }

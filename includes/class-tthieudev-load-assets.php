@@ -2,8 +2,6 @@
 if (!defined('ABSPATH')) {
     exit; // Prevent direct access
 }
-
-// Define the PLUGIN_URI constant
 if (!defined('PLUGIN_URI')) {
     define('PLUGIN_URI', rtrim(plugin_dir_url(dirname(__FILE__)), '/') . '/');
 }
@@ -15,11 +13,9 @@ if (!class_exists('Class_Tthieudev_Load_Assets')) {
     class Class_Tthieudev_Load_Assets {
         public function __construct() {
             $actions = [
-                'wp_enqueue_scripts' => ['load_styles_frontend', 'load_scripts_frontend'],
                 'admin_enqueue_scripts' => ['load_styles_admin', 'load_scripts_admin'],
+                'wp_enqueue_scripts' => ['load_styles_frontend', 'load_scripts_frontend'],
             ];
-
-            // Register actions for frontend and admin asset loading
             foreach ($actions as $hook => $methods) {
                 foreach ($methods as $method) {
                     add_action($hook, [$this, $method]);
@@ -36,6 +32,7 @@ if (!class_exists('Class_Tthieudev_Load_Assets')) {
             wp_enqueue_style('wrapper', PLUGIN_URI . "assets/css/frontend/wrapper.css", array(), '1.0.0', 'all');
             wp_enqueue_style('style-archive-project', PLUGIN_URI . "assets/css/frontend/archive-project.css", array(), '1.0.0', 'all');
             wp_enqueue_style('style-single-project', PLUGIN_URI . "assets/css/frontend/single-project.css", array(), '1.0.0', 'all');
+            wp_enqueue_style('style-pagination', PLUGIN_URI . "assets/css/frontend/pagination.css", array(), '1.0.0', 'all');
         }
 
         /**

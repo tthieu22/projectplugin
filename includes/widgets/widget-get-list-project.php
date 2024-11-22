@@ -43,7 +43,7 @@ class List_Project extends Widget_Base {
                 'options' => TthieuDev_Elementor_Helper::get_project_categories(),
                 'multiple' => true,
                 'default' => [],
-            ]
+            ],
         );
         $this->add_control(
             'project_tags',
@@ -175,7 +175,7 @@ class List_Project extends Widget_Base {
                     'size' => 20,
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .content-archive-post' => 'gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .wrapper-widget .content-archive-post-widget' => 'gap: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -187,14 +187,14 @@ class List_Project extends Widget_Base {
                 'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
                 'default' => [
                     'top' => 0,
-                    'right' => 10,
+                    'right' => 0,
                     'bottom' => 0,
-                    'left' => 10,
+                    'left' => 0,
                     'unit' => 'px',
                     'isLinked' => false,
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .content-archive-post' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .wrapper-widget .content-archive-post-widget' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -213,7 +213,7 @@ class List_Project extends Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name' => 'title_typography',
-                'selector' => '{{WRAPPER}} .wrapper .content-archive-post .content-post .project-item h2 a',
+                'selector' => '{{WRAPPER}} .wrapper-widget .content-archive-post-widget .widget-list-project-item .content-project .content-postion .content-project h2 a',
             ]
         );
         $this->add_control(
@@ -241,7 +241,7 @@ class List_Project extends Widget_Base {
                     'isLinked' => false,
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .content-archive-post .content-post .project-item h2' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .wrapper-widget .content-archive-post-widget .widget-list-project-item .content-project .content-postion .content-project h2' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -261,7 +261,7 @@ class List_Project extends Widget_Base {
                     'isLinked' => false,
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .content-archive-post .content-post .project-item h2' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .wrapper-widget .content-archive-post-widget .widget-list-project-item .content-project .content-postion .content-project h2' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -297,7 +297,7 @@ class List_Project extends Widget_Base {
                 'default' => 'left',
                 'toggle' => true,
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .content-archive-post .content-post .project-item h2' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .wrapper-widget .content-archive-post-widget .widget-list-project-item .content-project .content-postion .content-project h2' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -317,7 +317,7 @@ class List_Project extends Widget_Base {
                 'label' => esc_html__('Title Color', 'tthieudev'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .content-archive-post .content-post .project-item h2 a' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .content-archive-post-widget .widget-list-project-item .content-project .content-postion .content-project h2 a' => 'color: {{VALUE}}',
                 ],
             ]
         );
@@ -337,7 +337,7 @@ class List_Project extends Widget_Base {
                 'label' => esc_html__('Title Color Hover', 'tthieudev'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .content-archive-post .content-post .project-item h2 a:hover' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .content-archive-post-widget .widget-list-project-item .content-project .content-postion .content-project h2 a:hover' => 'color: {{VALUE}}',
                 ],
             ]
         );
@@ -359,7 +359,7 @@ class List_Project extends Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name' => 'category_tag_typography',
-                'selector' => '{{WRAPPER}} .wrapper .content-archive-post .content-post .project-categories a',
+                'selector' => '{{WRAPPER}} .wrapper-widget .content-archive-post-widget .widget-list-project-item .content-project .content-postion .content-project .project-categories a',
             ]
         );
         $this->add_control(
@@ -377,7 +377,7 @@ class List_Project extends Widget_Base {
                     'isLinked' => false,
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .content-archive-post .content-post .project-categories' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .wrapper-widget .content-archive-post-widget .widget-list-project-item .content-project .content-postion .content-project .project-categories' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -397,7 +397,7 @@ class List_Project extends Widget_Base {
                     'isLinked' => false,
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .content-archive-post .content-post .project-categories' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .wrapper-widget .content-archive-post-widget .widget-list-project-item .content-project .content-postion .content-project .project-categories' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -423,7 +423,7 @@ class List_Project extends Widget_Base {
                 'default' => 'left',
                 'toggle' => true,
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .content-archive-post .content-post .project-categories' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .wrapper-widget .content-archive-post-widget .widget-list-project-item .content-project .content-postion .content-project .project-categories' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -443,7 +443,7 @@ class List_Project extends Widget_Base {
                 'label' => esc_html__('Categories & Tags Color', 'tthieudev'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .content-archive-post .content-post .project-categories a' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .content-archive-post-widget .widget-list-project-item .content-project .content-postion .content-project .project-categories a' => 'color: {{VALUE}}',
                 ],
             ]
         );
@@ -463,7 +463,7 @@ class List_Project extends Widget_Base {
                 'label' => esc_html__('Categories & Tags Color Hover', 'tthieudev'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .content-archive-post .content-post .project-categories a:hover' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .content-archive-post-widget .widget-list-project-item .content-project .content-postion .content-project .project-categories a:hover' => 'color: {{VALUE}}',
                 ],
             ]
         );
@@ -488,7 +488,7 @@ class List_Project extends Widget_Base {
                 'name' => 'gradient_preview',
                 'label' => esc_html__('Gradient Preview', 'tthieudev'),
                 'types' => ['gradient'],
-                'selector' => '{{WRAPPER}} .wrapper .content-archive-post .content-archive-item .mark',
+                'selector' => '{{WRAPPER}} .wrapper-widget .content-archive-post-widget .widget-list-project-item .content-project .content-postion .content-project',
             ]
         );
 
@@ -517,7 +517,7 @@ class List_Project extends Widget_Base {
                     'isLinked' => false,
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .pagination-main' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -536,7 +536,7 @@ class List_Project extends Widget_Base {
                     'isLinked' => false,
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .pagination-main' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -555,9 +555,9 @@ class List_Project extends Widget_Base {
                 'label' => esc_html__('Text Color', 'tthieudev'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .pagination-main #pagination-container a.page-link' => 'color: {{VALUE}}',
-                    '{{WRAPPER}} .wrapper .pagination-main .nav-links .page-numbers .page-num' => 'color: {{VALUE}}',
-                    '{{WRAPPER}} .wrapper .pagination-main .nav-links .page-numbers span.page-next' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main #pagination-container a.page-link' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main .nav-links .page-numbers .page-num' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main .nav-links .page-numbers span.page-next' => 'color: {{VALUE}}',
 
                 ],
             ]
@@ -568,8 +568,8 @@ class List_Project extends Widget_Base {
                 'label' => esc_html__('Background Color', 'tthieudev'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .pagination-main #pagination-container a.page-link' => 'background-color: {{VALUE}}',
-                    '{{WRAPPER}} .wrapper .pagination-main .nav-links .page-numbers' => 'background-color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main #pagination-container a.page-link' => 'background-color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main .nav-links .page-numbers' => 'background-color: {{VALUE}}',
 
                 ],
             ]
@@ -588,11 +588,11 @@ class List_Project extends Widget_Base {
                 'label' => esc_html__('Text Color Hover & Active', 'tthieudev'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .pagination-main #pagination-container a.page-link:hover' => 'color: {{VALUE}}',
-                    '{{WRAPPER}} .wrapper .pagination-main .nav-links .page-numbers .page-num:hover' => 'color: {{VALUE}}',
-                    '{{WRAPPER}} .wrapper .pagination-main #pagination-container a.page-link.active' => 'color: {{VALUE}}',
-                    '{{WRAPPER}} .wrapper .pagination-main .nav-links .page-numbers span.page-next:hover' => 'color: {{VALUE}}',
-                    '{{WRAPPER}} .wrapper .pagination-main .nav-links .page-numbers.current .page-num' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main #pagination-container a.page-link:hover' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main .nav-links .page-numbers .page-num:hover' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main #pagination-container a.page-link.active' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main .nav-links .page-numbers span.page-next:hover' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main .nav-links .page-numbers.current .page-num' => 'color: {{VALUE}}',
 
 
                 ],
@@ -604,10 +604,10 @@ class List_Project extends Widget_Base {
                 'label' => esc_html__('Background Color Hover & Active', 'tthieudev'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .pagination-main #pagination-container a.page-link:hover' => 'background-color: {{VALUE}}',
-                    '{{WRAPPER}} .wrapper .pagination-main .nav-links .page-numbers:hover' => 'background-color: {{VALUE}}',
-                    '{{WRAPPER}} .wrapper .pagination-main #pagination-container a.page-link.active' => 'background-color: {{VALUE}}',
-                    '{{WRAPPER}} .wrapper .pagination-main .nav-links span.page-numbers.current span' => 'background-color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main #pagination-container a.page-link:hover' => 'background-color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main .nav-links .page-numbers:hover' => 'background-color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main #pagination-container a.page-link.active' => 'background-color: {{VALUE}}',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main .nav-links span.page-numbers.current span' => 'background-color: {{VALUE}}',
 
 
                 ],
@@ -630,7 +630,7 @@ class List_Project extends Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name' => 'pagination_typography',
-                'selector' => '{{WRAPPER}} .wrapper .content-archive-post .content-post .project-categories a',
+                'selector' => '{{WRAPPER}} .wrapper-widget .content-archive-post-widget .content-post .project-categories a',
             ]
         );
         $this->add_responsive_control(
@@ -655,8 +655,8 @@ class List_Project extends Widget_Base {
                     'size' => 5,
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .wrapper .pagination-main .nav-links' => 'gap: {{SIZE}}{{UNIT}};',
-                    '{{WRAPPER}} .wrapper .pagination-main .nav-links' => 'gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main .nav-links' => 'gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .wrapper-widget .pagination-main .nav-links' => 'gap: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -675,22 +675,8 @@ class List_Project extends Widget_Base {
         $show_categories = isset($settings['show_project_categories']) ? $settings['show_project_categories'] : 'yes';
         $show_tags = isset($settings['show_project_tags']) ? $settings['show_project_tags'] : 'yes';
         $show_pagination = isset($settings['show_pagination']) ? $settings['show_pagination'] : 'yes';
-        // $column = isset($settings['column']) ? $settings['column'] : 5;
         $posts_per_page = isset($settings['posts_per_page']) ? $settings['posts_per_page'] : 3;
-
-        // $col = ($column == 4) ? 4 : (($column == 3) ? 3 : (($column == 2) ? 2 : 1));
         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
-        $data_widget_get_list_project = [
-            'selected_categories' => $selected_categories,
-            'selected_tags' => $selected_tags,
-            'show_title' => $show_title,
-            'show_categories' => $show_categories,
-            'show_tags' => $show_tags,
-            'posts_per_page' => $posts_per_page,
-            'current_post_id' => $current_post_id,
-        ];
-        update_option('project_settings', $data_widget_get_list_project);
 
         $args = [
             'post_type'      => 'project',
@@ -727,22 +713,33 @@ class List_Project extends Widget_Base {
         }
 
         $query = new WP_Query($args);
-
         
         ?>
-        <div class="wrapper w-100">
-            <div class="content-archive-post gap-20" id="posts-container" style="grid-template-columns:repeat(<?php echo $settings['column']; ?>, 1fr)" >
+        <div class="data-posts "
+            data-posts-per-page="<?php echo esc_attr( $posts_per_page ); ?>" 
+            data-selected-tags="<?php echo esc_attr( implode( ',', $selected_tags ) ); ?>"
+            data-selected-categories="<?php echo esc_attr( implode( ',', $selected_categories ) ); ?>"
+            data-current_post_id="<?php echo esc_attr( $current_post_id ); ?>">
+        </div>
+
+        <div class="wrapper-widget w-100" >
+            <div class="content-archive-post-widget gap-20" id="posts-container" style="--columns: <?php echo esc_attr( $settings['column'] ); ?>"
+            data-show-title="<?php echo esc_attr( $show_title ); ?>"
+            data-show-categories="<?php echo esc_attr( $show_categories ); ?>"
+            data-show-tags="<?php echo esc_attr( $show_tags ); ?>"
+            data-columns="<?php echo esc_attr( $settings['column'] ); ?>"
+
+            >
             <?php
             if ($query->have_posts()) :
                 while ($query->have_posts()) : $query->the_post();
                     TemplateLoader::get_template('item/elementors/list-project-display.php');
                 endwhile;
                 wp_reset_postdata();
-                
-                // Nếu có phân trang
+
+                echo '</div>';
                 if($show_pagination == 'yes') :
-                    ?>
-                    </div> <!-- Đóng div của content-archive-post sau khi đã kết thúc vòng lặp -->
+                    ?> <!-- Đóng div của content-archive-post sau khi đã kết thúc vòng lặp -->
 
                     <div class="pagination-main">
                         <div id="pagination-container">
@@ -750,9 +747,7 @@ class List_Project extends Widget_Base {
                             global $wp_query; 
                             $temp_query = $wp_query;
                             $wp_query = $query;
-
                             TemplateLoader::get_template( 'item/panigation.php' );
-
                             $wp_query = $temp_query; 
                             ?>
                         </div>
@@ -769,6 +764,5 @@ class List_Project extends Widget_Base {
 
         <?php
     }
-
 
 }

@@ -80,7 +80,7 @@
       .wrapper .content-archive-post .content-post .project-categories a:after {
         position: absolute;
         content: '/';
-        top: 50%;
+        top: 40%;
         right: -8px;
         transform: translateY(-50%); }
       .wrapper .content-archive-post .content-post .project-categories a:last-child:after {

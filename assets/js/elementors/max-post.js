@@ -1,66 +1,76 @@
-(function ($) {
-    $(window).on('elementor/frontend/init', function () {
-        elementorFrontend.hooks.addAction('frontend/element_ready/get_list_project.default', function ($scope, $) {
-            // Code xử lý logic của bạn
-            console.log('Tthieudev Widget Ready!');
+window.tthieudev_script_max_post = {
+    init: function() {
+        const dataPostsElement = document.querySelector('.data-posts');
+        this.postsPerPage = dataPostsElement.getAttribute('data-posts-per-page');
+        this.selectedTags = dataPostsElement.getAttribute('data-selected-tags');
+        this.selectedCategories = dataPostsElement.getAttribute('data-selected-categories');
+        this.currentPostId = dataPostsElement.getAttribute('data-current_post_id');
+        this.selectedTags = this.selectedTags && this.selectedTags.trim() !== '' ? this.selectedTags.split(',') : [];
+        this.selectedCategories = this.selectedCategories && this.selectedCategories.trim() !== '' ? this.selectedCategories.split(',') : [];
+
+        // Kiểm tra và in ra các giá trị để xác nhận
+        console.log('Selected Tags:', this.selectedTags);
+        console.log('Selected Categories:', this.selectedCategories);
+        console.log('Current Post ID:', this.currentPostId);
+        this.loadColumn();
+
+        this.clickInput(); 
+    },
+
+    loadColumn: function(){
+        document.querySelectorAll('.content-archive-post').forEach(element => {
+            const columns = element.getAttribute('data-columns') || 3;
+            element.style.setProperty('--columns', columns);
         });
+    },
+    clickInput: function() {
+        const self = this;
+        jQuery(document).on('click', '.elementor-control-posts_per_page input', function() {
+            jQuery.ajax({
+                url: tthieudev.ajax_url,  
+                type: 'POST',
+                data: {
+                    action: 'handle_your_ajax_request',  
+                    security_tthieu: tthieudev.security_tthieu, 
+                    selected_tags: self.selectedTags.join(','), 
+                    selected_categories: self.selectedCategories.join(','), 
+                    current_post_id: self.currentPostId, 
+                },
+                success: function(response) {
+                    console.log('Response:', response); 
+                    if (response.success) { 
+                        const maxPosts = response.data.max_posts; 
+                        console.log('Max posts:', maxPosts);
 
-        // Áp dụng cho tất cả các widget
-        elementorFrontend.hooks.addAction('frontend/element_ready/global', function ($scope, $) {
-            console.log('Global Widget Ready!');
-        });
-    });
+                        const controlInput = jQuery('.elementor-control-posts_per_page input');
+                        controlInput.attr('max', maxPosts);  
+                        controlInput.attr('aria-valuemax', maxPosts); 
 
-    // Xử lý thay đổi trong control 'posts_per_page'
-    $(document).on('click', '.elementor-control-posts_per_page input', function () {
-        const control = $(this);
-
-        $.ajax({
-            url: tthieudev.ajax_url,  // URL AJAX
-            type: 'POST',
-            data: {
-                action: 'handle_your_ajax_request',  // Action hook trong WordPress
-                security_tthieu: tthieudev.security_tthieu  // Nonce bảo mật
-            },
-
-            success: function(response) {
-                console.log('Response:', response); // Ghi lại toàn bộ phản hồi
-
-                if (response.success) {
-                    const maxPosts = response.data.max_posts;
-                    console.log('Max posts:', maxPosts);
-
-                    // Cập nhật giá trị tối đa vào control 'posts_per_page'
-                    const controlInput = $('.elementor-control-posts_per_page input');
-                    controlInput.attr('max', maxPosts);  // Cập nhật giá trị tối đa
-                    controlInput.attr('aria-valuemax', maxPosts); // Cập nhật giá trị aria
-
-                    // Giới hạn giá trị tối đa không vượt quá max_posts
-                    const currentValue = parseInt(controlInput.val(), 10);
-                    if (currentValue > maxPosts) {
-                        controlInput.val(maxPosts);  // Đặt lại giá trị nếu người dùng nhập vượt quá max
-                    }
-
-                    // Cập nhật mô tả về số lượng bài viết tối đa
-                    const description = 'Max posts allowed: ' + maxPosts;
-                    $('.elementor-control-posts_per_page .elementor-control-field-description').html(description);
-
-                    // Lắng nghe sự thay đổi giá trị để kiểm tra giới hạn
-                    controlInput.on('input', function() {
-                        const value = parseInt(controlInput.val(), 10);
-                        if (value > maxPosts) {
-                            controlInput.val(maxPosts);  // Đặt lại giá trị nếu người dùng nhập vượt quá max
+                        const currentValue = parseInt(controlInput.val(), 10);
+                        if (currentValue > maxPosts) {
+                            controlInput.val(maxPosts);  
                         }
-                    });
-                } else {
-                    alert('Không thể lấy số lượng bài viết tối đa.');
-                }
+                        const description = 'Max posts allowed: ' + maxPosts;
+                        jQuery('.elementor-control-posts_per_page .elementor-control-field-description').html(description);
 
-            },
-            error: function(xhr, status, error) {
-                console.log('Error fetching max posts:', error);
-                alert('Có lỗi xảy ra khi lấy số lượng bài viết tối đa.');
-            }
+                        controlInput.on('input', function() {
+                            const value = parseInt(controlInput.val(), 10);
+                            if (value > maxPosts) {
+                                controlInput.val(maxPosts); 
+                            }
+                        });
+                    } else {
+                        alert('Không thể lấy số lượng bài viết tối đa.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error fetching max posts:', error);
+                    alert('Có lỗi xảy ra khi lấy số lượng bài viết tối đa.');
+                }
+            });
         });
-    });
-})(jQuery);
+    }
+};
+jQuery(document).ready(function() {
+    tthieudev_script_max_post.init();
+});

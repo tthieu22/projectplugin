@@ -146,8 +146,6 @@ if ( ! class_exists( 'Class_TthieuDev_Project_Custom_Post_Type' ) ) {
         }
     }
 }
-
-// Initialize the class when the plugin is loaded
 if (class_exists('Class_TthieuDev_Project_Custom_Post_Type')) {
     new Class_TthieuDev_Project_Custom_Post_Type();
 }

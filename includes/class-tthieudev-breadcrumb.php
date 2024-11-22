@@ -40,3 +40,7 @@ class Tthieudev_Breadcrumb {
         }
     }
 }
+if ( class_exists( 'Tthieudev_Breadcrumb' ) ) {
+    new Tthieudev_Breadcrumb();
+}
+

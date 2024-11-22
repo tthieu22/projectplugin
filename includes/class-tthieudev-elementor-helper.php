@@ -49,96 +49,57 @@ if ( ! class_exists( 'TthieuDev_Elementor_Helper' ) ) {
          *
          * @return int Total count of unique posts.
          */
-        public static function get_max_posts() {
-            // Retrieve settings for loading posts.
-            $settings = get_option('project_settings');
-            $posts_per_page = isset($settings['posts_per_page']) ? $settings['posts_per_page'] : 10; // Default to 10 if not set
-            $show_title = isset($settings['show_title']) ? $settings['show_title'] : true;
-            $show_categories = isset($settings['show_categories']) ? $settings['show_categories'] : true;
-            $show_tags = isset($settings['show_tags']) ? $settings['show_tags'] : true;
-            $selected_categories = isset($settings['selected_categories']) ? $settings['selected_categories'] : [];
-            $selected_tags = isset($settings['selected_tags']) ? $settings['selected_tags'] : [];
-            $current_post_id = isset($settings['current_post_id']) ? $settings['current_post_id'] : 0;
-            $paged = isset($_POST['paged']) ? intval($_POST['paged']) : 1;
-
-            // Prepare the query arguments for fetching posts.
+        public static function get_max_posts($selected_tags, $selected_categories, $current_post_id) {
+            // Cấu hình các tham số cho WP_Query
             $args = [
-                'post_type'      => 'project',        // Custom post type to query.
-                'post_status'    => 'publish',        // Only fetch published posts.
-                'paged'          => $paged,           // Current page number for pagination.
-                'post__not_in'   => [$current_post_id], // Exclude the current post from the results.
-                'posts_per_page' => $posts_per_page,  // Number of posts to load per page.
+                'post_type'      => 'project',
+                'post_status'    => 'publish',
+                'post__not_in'   => [$current_post_id], // Loại trừ bài viết hiện tại
             ];
 
-            // Build the taxonomy query for filtering by categories and tags.
+            // Cấu hình Tax Query (Lọc theo danh mục và thẻ)
             $tax_query = [];
+
+            // Nếu có selected_categories, thêm vào tax_query
             if (!empty($selected_categories)) {
                 $tax_query[] = [
-                    'taxonomy' => 'project_category',  // Taxonomy for project categories.
-                    'field'    => 'slug',             // Match categories by slug.
+                    'taxonomy' => 'project_category',
+                    'field'    => 'slug',
                     'terms'    => $selected_categories,
-                    'operator' => 'IN',               // Match any of the selected categories.
+                    'operator' => 'IN', // Lọc theo các danh mục này
                 ];
             }
 
+            // Nếu có selected_tags, thêm vào tax_query
             if (!empty($selected_tags)) {
                 $tax_query[] = [
-                    'taxonomy' => 'project_tag',       // Taxonomy for project tags.
-                    'field'    => 'slug',             // Match tags by slug.
+                    'taxonomy' => 'project_tag',
+                    'field'    => 'slug',
                     'terms'    => $selected_tags,
-                    'operator' => 'IN',               // Match any of the selected tags.
+                    'operator' => 'IN', // Lọc theo các thẻ này
                 ];
             }
 
+            // Thêm tax_query vào args nếu có
             if (!empty($tax_query)) {
                 $args['tax_query'] = [
-                    'relation' => 'OR', // Combine multiple taxonomy filters with OR logic.
+                    'relation' => 'OR',  // Lọc theo danh mục hoặc thẻ (hoặc)
                 ];
                 $args['tax_query'] = array_merge($args['tax_query'], $tax_query);
             }
 
-
-            // Execute the WP_Query with the prepared arguments.
+            // Thực thi truy vấn
             $query = new WP_Query($args);
 
-            // Calculate max posts based on the query result
-            $max_posts = $query->found_posts; // This gives the total number of posts based on the query
-
-            return $max_posts;
-
+            // Trả về tổng số bài viết tìm thấy
+            return $query->found_posts;
         }
 
 
-        /**
-         * Get the number of unique project posts based on the given categories.
-         *
-         * @param array $categories Array of category slugs.
-         * @return int Total count of unique posts.
-         */
-        public static function get_max_posts_by_categories($categories) {
-            $unique_posts = [];
-
-            foreach ($categories as $slug) {
-                $query = new WP_Query([
-                    'post_type' => 'project',
-                    'tax_query' => [
-                        [
-                            'taxonomy' => 'project_category',
-                            'field'    => 'slug',
-                            'terms'    => $slug,
-                        ],
-                    ],
-                    'fields' => 'ids',
-                    'posts_per_page' => -1, 
-                ]);
-
-                if (!empty($query->posts)) {
-                    $unique_posts = array_merge($unique_posts, $query->posts);
-                }
-            }
-
-            $unique_posts = array_unique($unique_posts);
-            return count($unique_posts);
-        }
     }
+}
+
+// Initialize the class
+if (class_exists('TthieuDev_Elementor_Helper')) {
+    new TthieuDev_Elementor_Helper();
 }

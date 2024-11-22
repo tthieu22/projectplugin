@@ -4,6 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
 if ( ! defined( 'PLUGIN_PATH' ) ) {
     // Define the PLUGIN_PATH constant if it's not already defined, pointing to the plugin directory path.
     define( 'PLUGIN_PATH', rtrim( plugin_dir_path( dirname( __FILE__ ) ), '/' ) . '/' );
+    // echo PLUGIN_PATH;
 }
 
 /**
@@ -21,13 +22,23 @@ if ( ! defined( 'PLUGIN_PATH' ) ) {
 
 // Loop through the list of required files and include them from the 'includes' directory.
 array_map(fn($file) => require_once PLUGIN_PATH . 'includes/' . $file, [
-    // List of core plugin files to be included
+    // List of core plugin files to be included 
+    'class-tthieudev-load-assets.php',        
+    'class-tthieudev-scripts-styles-elementor.php',         
     'class-tthieudev-project-custom-post-type.php',        
-    'class-tthieudev-project-advance-custom-field.php',    
-    'class-tthieudev-load-assets.php',                    
+    'class-tthieudev-project-advance-custom-field.php',      
     'class-tthieudev-project-template-loader.php',   
     'class-tthieudev-template-function.php',               
     'class-tthieudev-breadcrumb.php',                     
     'class-tthieudev-project-setting.php',              
     'class-tthieudev-elementor-helper.php',               
+    'class-tthieudev-shortcore-handler.php',          
 ]);
+// shorcode : 
+// [project categories="marketing" tags="IT| smart" tags="it" post_per_page="3" columns="3" style="grid" pagination="yes"]
+//
+//
+//
+//
+//
+
