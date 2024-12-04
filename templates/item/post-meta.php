@@ -1,6 +1,5 @@
-<?php 
-defined("ABSPATH") or die("You can not access directly");
-?>
+<?php defined( 'ABSPATH' ) || exit; ?>
+
 <div class="bg-content-author">
    <?php
 
@@ -11,11 +10,11 @@ defined("ABSPATH") or die("You can not access directly");
     $value = get_post_meta( $post_id, 'value', true );
 
     if (get_option('checked-show-category-single') == '1') {
-        TemplateLoader::get_template('item/get-list-categories.php' );
+        tthieudev_get_template('item/get-list-categories.php' );
     }
 
     if (get_option('checked-show-tag-single') == '1') {
-        TemplateLoader::get_template('item/get-list-tags.php' );
+        tthieudev_get_template('item/get-list-tags.php' );
     }
 
     if (get_option('checked-show-sub-title') == '1' && ! empty( $sub_title ) ) {
@@ -32,7 +31,7 @@ defined("ABSPATH") or die("You can not access directly");
     }
 
     if (get_option('checked-show-value') == '1' && ! empty( $value ) ) {
-        echo '<p><strong>' . esc_html__( 'Value', 'tthieudev' ) . '</strong> ' . esc_html( $value ) . '</p>';
+        echo '<p><strong>' . esc_html__( 'Value', 'tthieudev' ) . '</strong> ' . esc_html( $value ) . ' USD</p>';
     }
     ?>
 </div>

@@ -1,0 +1,42 @@
+h1.wp-heading-inline{
+    a{
+        color: black;
+        text-decoration: auto;
+    }
+}
+.search-list-project-admin{
+    float: left !important;
+    span.box {
+        display: flex;
+        flex-direction: column;
+        &:last-child {
+            label{
+                height: 20px;
+            }
+        }
+        &:nth-last-child(2) {
+            label{
+                height: 20px;
+            }
+        }
+    }
+
+}
+
+
+.wrap.wrapper-list-table-project {
+    .tablenav {
+        display: flex;
+        float: right;
+        clear: none; 
+        height:auto;
+        margin: 23px 0 4px;
+        padding-top: 5px;
+        vertical-align: none;
+
+    }   
+}
+table.wp-list-table.widefat.fixed.striped.table-view-list.projects{
+    table-layout: auto;
+
+}

@@ -1,6 +1,5 @@
-<?php 
-defined("ABSPATH") or die("You can not access directly");
-?>
+<?php defined( 'ABSPATH' ) || exit; ?>
+
 <div class="pagination-main">
     <?php 
         the_posts_pagination([

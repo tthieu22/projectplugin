@@ -1,6 +1,4 @@
-<?php
-defined("ABSPATH") or die("You can not access directly");
-?>
+<?php defined( 'ABSPATH' ) || exit; ?>
 
 <div class="widget-list-project-item">
     <a href="<?php the_permalink(); ?>">
@@ -15,8 +13,8 @@ defined("ABSPATH") or die("You can not access directly");
             <div class="content-postion">
                 <div class="content-project">
                     <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-                    <?php  TemplateLoader::get_template('item/get-list-categories.php' ); ?>
-                    <?php  TemplateLoader::get_template('item/get-list-tags.php' ); ?>
+                    <?php  tthieudev_get_template('item/get-list-categories.php' ); ?>
+                    <?php  tthieudev_get_template('item/get-list-tags.php' ); ?>
                 </div>
             </div>
         </div>    

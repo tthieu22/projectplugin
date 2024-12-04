@@ -1,6 +1,4 @@
-<?php 
-defined("ABSPATH") or exit("You cannot access this file directly.");
-?> 
+<?php defined( 'ABSPATH' ) || exit; ?>
 
 <div class="position-relative w-100 box-item">
     <a class="content-archive-item w-100" href="<?php echo esc_url(get_permalink()); ?>">
@@ -23,12 +21,12 @@ defined("ABSPATH") or exit("You cannot access this file directly.");
                 <?php endif; ?>
 
                 <?php if (get_option('checked-show-category-archive') == '1') : ?>
-                    <?php TemplateLoader::get_template('item/get-list-categories.php'); ?>
+                    <?php tthieudev_get_template('item/get-list-categories.php'); ?>
                 <?php endif; ?>
 
                 <?php if (get_option('checked-show-tag-archive') == '1') : ?>
                     <div class="project-tags">
-                        <?php TemplateLoader::get_template('item/get-list-tags.php'); ?>
+                        <?php tthieudev_get_template('item/get-list-tags.php'); ?>
                     </div>
                 <?php endif; ?>
             </div>

@@ -1,11 +1,10 @@
-<?php 
-defined("ABSPATH") or die("You can not access directly");
-?>
+<?php defined( 'ABSPATH' ) || exit; ?>
+
 <div class="wrapper">
    <div class="container">
        <div class="row">
            <div class="col-9">
-                <div class="img-detail ">
+                <div class="img-detail">
                     <?php if (get_option('checked-show-image') == '1') { ?>
                         <?php if ( has_post_thumbnail() ) : ?>
                             <div class="project-thumbnail img-fluid">
@@ -16,7 +15,7 @@ defined("ABSPATH") or die("You can not access directly");
                 </div>
            </div>
            <div class="col-3">
-                <?php TemplateLoader::get_template('item/post-meta.php' ); ?> 
+                <?php tthieudev_get_template('item/post-meta.php'); ?> 
            </div>
        </div>
    </div>
@@ -24,7 +23,7 @@ defined("ABSPATH") or die("You can not access directly");
        <div class="row">
            <div class="col-12">
                 <div class="single-page-content">
-                   <?php the_content() ?>
+                   <?php the_content(); ?>
                 </div>
            </div>
        </div>

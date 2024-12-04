@@ -18,6 +18,6 @@ window.tthieudev_script_shortcode = {
 
 }
 
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function () {
     tthieudev_script_shortcode.init();
 });

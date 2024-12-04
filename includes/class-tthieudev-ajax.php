@@ -1,10 +1,7 @@
-<?php
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
-}
+<?php defined( 'ABSPATH' ) || exit;
 
-if (!class_exists('Tthieudev_Ajax')) {
-    class Tthieudev_Ajax {
+if (!class_exists('TthieuDev_Ajax')) {
+    class TthieuDev_Ajax {
         /**
          * Constructor method to initialize the class.
          * Registers AJAX actions for both authenticated and unauthenticated users.
@@ -73,7 +70,7 @@ if (!class_exists('Tthieudev_Ajax')) {
                 ob_start();
                 while ($query->have_posts()) {
                     $query->the_post();
-                    TemplateLoader::get_template('item/elementors/list-project-display.php');
+                    tthieudev_get_template('item/elementors/list-project-display.php');
                 }
                 wp_send_json_success([
                     'posts' => ob_get_clean(),
@@ -108,7 +105,6 @@ if (!class_exists('Tthieudev_Ajax')) {
 
 
     }
-}
-if ( class_exists( 'Tthieudev_Ajax' ) ) {
-    new Tthieudev_Ajax();
+
+    return new TthieuDev_Ajax();
 }

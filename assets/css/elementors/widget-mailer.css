@@ -1,0 +1,40 @@
+.wrapper-mailer-project {
+  margin: 0 10px; }
+  .wrapper-mailer-project form {
+    border: 2px solid  #0000003b;
+    padding: 70px 50px 50px 50px;
+    max-width: 800px; }
+    .wrapper-mailer-project form .box-input {
+      display: flex;
+      width: 100%;
+      gap: 30px;
+      justify-content: center;
+      margin-bottom: 30px; }
+      .wrapper-mailer-project form .box-input .input-content {
+        margin: 0;
+        width: 100%; }
+        .wrapper-mailer-project form .box-input .input-content label {
+          width: 100%;
+          margin-bottom: 10px; }
+        .wrapper-mailer-project form .box-input .input-content input {
+          width: 100%;
+          padding: 10px;
+          border: 2px solid #0000003b; }
+        .wrapper-mailer-project form .box-input .input-content textarea, .wrapper-mailer-project form .box-input .input-content select {
+          width: 100%;
+          padding: 10px;
+          border: 2px solid #0000003b; }
+      .wrapper-mailer-project form .box-input input[type="submit"] {
+        background: #00009b;
+        color: white;
+        padding: 10px 50px;
+        border-radius: 100px;
+        border: none; }
+
+@media screen and (max-width: 1024px) {
+  .wrapper-mailer-project form {
+    padding: 20px; }
+    .wrapper-mailer-project form .box-input {
+      flex-direction: column; } }
+
+/*# sourceMappingURL=widget-mailer.css.map */

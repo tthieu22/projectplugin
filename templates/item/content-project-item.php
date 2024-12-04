@@ -1,6 +1,5 @@
-<?php 
-defined("ABSPATH") or die("You can not access directly");
-?>
+<?php defined( 'ABSPATH' ) || exit; ?>
+
 <div class="project-item">
     <?php if ( has_post_thumbnail() ) : ?>
         <div class="project-thumbnail">

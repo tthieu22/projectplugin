@@ -1,10 +1,7 @@
-<?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
+<?php defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'Class_Tthieudev_Shortcode_Handler' ) ) {
-    class Class_Tthieudev_Shortcode_Handler {
+if ( ! class_exists( 'TthieuDev_Shortcore_Handler' ) ) {
+    class TthieuDev_Shortcore_Handler {
 
         public function __construct() {
             add_action( 'init', [ $this, 'register_shortcodes' ] );
@@ -28,7 +25,6 @@ if ( ! class_exists( 'Class_Tthieudev_Shortcode_Handler' ) ) {
                 'project'
             );
 
-            // Xử lý categories và tags dựa trên dấu |
             $categories = $this->parse_tax_input( $atts['categories'], '|' );
             $tags = $this->parse_tax_input( $atts['tags'], '|' );
 
@@ -45,7 +41,6 @@ if ( ! class_exists( 'Class_Tthieudev_Shortcode_Handler' ) ) {
                 'paged'          => $paged,
             ];
 
-            // Xây dựng tax_query
             $tax_query = [];
             if ( ! empty( $categories ) ) {
                 $tax_query[] = [
@@ -74,7 +69,6 @@ if ( ! class_exists( 'Class_Tthieudev_Shortcode_Handler' ) ) {
 
             $args = apply_filters( 'tthieudev_project_query_args', $args, $atts );
 
-            // Truy vấn bài viết
             $query = new WP_Query( $args );
 
             if ( $query->have_posts() ) {
@@ -82,7 +76,7 @@ if ( ! class_exists( 'Class_Tthieudev_Shortcode_Handler' ) ) {
                 echo '<div class="project-list-content" data-style="' . esc_attr( $style ) . '" data-columns="' . esc_attr( $columns ) . '"style="grid-template-columns:repeat('. esc_attr( $columns ) .' , 1fr)">' ;
                 while ( $query->have_posts() ) {
                     $query->the_post();
-                    TemplateLoader::get_template( 'item/shortcode/list-project.php' );
+                    tthieudev_get_template( 'item/shortcode/list-project.php' );
                 }
                 echo '</div>';
                 if ( 'yes' === $pagination ) {
@@ -102,34 +96,29 @@ if ( ! class_exists( 'Class_Tthieudev_Shortcode_Handler' ) ) {
             $temp_query = $wp_query;
             $wp_query = $query;
 
-            TemplateLoader::get_template( 'item/panigation.php' );
+            tthieudev_get_template( 'item/panigation.php' );
 
             $wp_query = $temp_query;
             echo '</div></div>';
         }
-
-        /**
-         * Xử lý danh sách danh mục hoặc thẻ từ chuỗi đầu vào với dấu phân tách
-         *
-         * @param string $input Chuỗi đầu vào
-         * @param string $delimiter Dấu phân tách (ví dụ: '|')
-         * @return array Mảng các danh mục hoặc thẻ đã xử lý
-         */
+        
+		/**
+		 * Process a list of categories or tags from an input string with a delimiter
+		 *
+		 * @param string $input Input string
+		 * @param string $delimiter Delimiter (e.g., '|')
+		 * @return array Processed array of categories or tags
+		 */
         private function parse_tax_input( $input, $delimiter = ',' ) {
             $input = trim( $input );
             if ( empty( $input ) ) {
                 return [];
             }
 
-            // Tách theo dấu phân tách, giữ nguyên khoảng trắng trong tên
             $items = preg_split( '/\s*' . preg_quote( $delimiter, '/' ) . '\s*/', $input );
 
-            // Xóa các phần tử trống và trả về mảng
             return array_filter( array_map( 'sanitize_text_field', $items ) );
         }
     }
-}
-
-if ( class_exists( 'Class_Tthieudev_Shortcode_Handler' ) ) {
-    new Class_Tthieudev_Shortcode_Handler();
+    return new TthieuDev_Shortcore_Handler();
 }

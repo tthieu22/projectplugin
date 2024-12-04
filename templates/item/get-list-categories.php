@@ -1,6 +1,4 @@
-<?php 
-defined("ABSPATH") or die("You cannot access this file directly");
-?>
+<?php defined( 'ABSPATH' ) || exit; ?>
 
 <div class="project-categories text-white">
     <?php 

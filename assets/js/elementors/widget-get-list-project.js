@@ -176,6 +176,6 @@ window.tthieudev_script = {
 
 };
 
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function () {
     tthieudev_script.init();
 });

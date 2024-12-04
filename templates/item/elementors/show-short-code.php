@@ -1,7 +1,5 @@
-<?php 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; 
-}
+<?php defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="item-project">
     <a href="<?php the_permalink(); ?>">
@@ -16,8 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="content-position">
                 <div class="content">
                     <h2 class="project-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-                    <?php TemplateLoader::get_template('item/get-list-categories.php'); ?>
-                    <?php TemplateLoader::get_template('item/get-list-tags.php'); ?>
+                    <?php TthieuDev_TemplateLoader::get_template('item/get-list-categories.php'); ?>
+                    <?php TthieuDev_TemplateLoader::get_template('item/get-list-tags.php'); ?>
                 </div>
             </div>
         </div>

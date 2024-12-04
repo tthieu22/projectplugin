@@ -1,8 +1,5 @@
-<?php
+<?php defined('ABSPATH') || exit;
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Background;
@@ -733,7 +730,7 @@ class List_Project extends Widget_Base {
             <?php
             if ($query->have_posts()) :
                 while ($query->have_posts()) : $query->the_post();
-                    TemplateLoader::get_template('item/elementors/list-project-display.php');
+                    tthieudev_get_template('item/elementors/list-project-display.php');
                 endwhile;
                 wp_reset_postdata();
 
@@ -747,7 +744,7 @@ class List_Project extends Widget_Base {
                             global $wp_query; 
                             $temp_query = $wp_query;
                             $wp_query = $query;
-                            TemplateLoader::get_template( 'item/panigation.php' );
+                            tthieudev_get_template( 'item/panigation.php' );
                             $wp_query = $temp_query; 
                             ?>
                         </div>

@@ -1,7 +1,5 @@
-<?php 
-defined("ABSPATH") or die("You can not access directly");
-?>
-<!-- Form cho Single Settings -->
+<?php defined( 'ABSPATH' ) || exit; ?>
+
 <div id="Single" class="wrapper-setting city ">
     <form method="POST" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
         <input type="hidden" name="action" value="save_project_settings">

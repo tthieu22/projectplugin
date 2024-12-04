@@ -1,5 +1,5 @@
-<?php 
-defined("ABSPATH") or die("You can not access directly");
+<?php defined( 'ABSPATH' ) || exit; 
+
 $term = get_queried_object();
 ?>
 <div class="project-archive-banner position-relative mb-4">
@@ -15,7 +15,7 @@ $term = get_queried_object();
     elseif ( is_tax( 'project_category' ) || is_tax( 'project_tag' ) ) {
         echo esc_html( $term->name ) .' &nbsp;Projects';
     }
-    Tthieudev_Breadcrumb::display();
+    tthieudev_breadcrumb();
     ?>
     </h1>
 </div>

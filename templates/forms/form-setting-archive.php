@@ -1,9 +1,6 @@
-<?php 
-defined("ABSPATH") or die("You can not access directly");
-?>
-<!-- Form cho Archive Settings -->
+<?php defined( 'ABSPATH' ) || exit; ?>
 
-<div id="Archive" class="wrapper-setting city" style="display:none">
+<div id="Archive" class="wrapper-setting city">
     <form method="POST" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
         <input type="hidden" name="action" value="save_project_settings">
         <?php wp_nonce_field('save_project_settings', 'project_settings_nonce'); ?>

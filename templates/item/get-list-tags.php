@@ -1,6 +1,5 @@
-<?php 
-defined("ABSPATH") or die("You can not access directly");
-?>
+<?php defined( 'ABSPATH' ) || exit; ?>
+
 <div class="project-categories tags text-white">
     <?php 
     $tags = get_the_terms( get_the_ID(), 'project_tag' ); // Lấy các category
